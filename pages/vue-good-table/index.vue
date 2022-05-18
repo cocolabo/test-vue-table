@@ -4,7 +4,6 @@
     <vue-good-table-form
       :total="total"
       :data="data"
-      :columns="columns"
       :currentPage="currentPage"
       @backPage="backPage"
       @nextPage="nextPage"
@@ -24,7 +23,6 @@ export default {
     return {
       currentPage: 1,
       data: [],
-      columns: [],
       total: 0,
       sortField: null,
       sortType: null
@@ -34,7 +32,6 @@ export default {
     getData(currentPage, field=null, type=null) {
       const res = api.getData(currentPage, this.sortField, this.sortType);
       this.data = res.data;
-      this.columns = res.columnList;
       this.total = res.total;
     },
     sortData(field, type) {

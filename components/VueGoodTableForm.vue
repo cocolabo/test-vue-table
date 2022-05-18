@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import _ from 'lodash';
 
 export default {
   name: 'VueGoodTableForm',
@@ -42,9 +43,16 @@ export default {
       type: Array,
       required: true
     },
-    columns: {
-      type: Array,
-      required: true
+  },
+  computed: {
+    columns() {
+      const labels = Object.keys(this.data[0])
+      return _.map(labels, function(value) {
+        return {
+          label: value,
+          field: value
+        }
+      })
     }
   },
 

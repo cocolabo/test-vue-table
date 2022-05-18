@@ -35,38 +35,7 @@ const dataList = [
   {id:34,visitors:737,sales:57,isBargain:false,categoryId:5,weatherId:2},
   {id:35,visitors:673,sales:81,isBargain:true,categoryId:5,weatherId:2},
 ];
-const columnList = [
-  {
-    label: 'ID',
-    field: 'id',
-    type: 'number',
-  },
-  {
-    label: '来客数',
-    field: 'visitors',
-    type: 'number',
-  },
-  {
-    label: '販売数',
-    field: 'sales',
-    type: 'number',
-  },
-  {
-    label: 'セール開催',
-    field: 'isBargain',
-    type: 'boolean',
-  },
-  {
-    label: 'カテゴリーID',
-    field: 'categoryId',
-    type: 'number',
-  },
-  {
-    label: '天気ID',
-    field: 'weatherId',
-    type: 'number',
-  },
-];
+
 const total = dataList.length;
 const perPage = 10;
 export default {
@@ -78,7 +47,6 @@ export default {
       sorted = _.orderBy(dataList, [field], [type]);
     }
     return {
-      columnList: columnList,
       total: total,
       data: sorted.slice(start, end)
     };
