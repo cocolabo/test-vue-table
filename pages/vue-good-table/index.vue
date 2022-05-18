@@ -2,9 +2,9 @@
   <div>
     <h1>vue-good-table</h1>
     <vue-good-table-form
-      :total="getTotal()"
-      :data="getData(currentPage)"
-      :columns="getColumns()"
+      :total="total"
+      :data="data"
+      :columns="columns"
       @setPage="setPage"
     ></vue-good-table-form>
   </div>
@@ -19,24 +19,29 @@ export default {
   },
   data() {
     return {
-      currentPage: 1
+      currentPage: 1,
+      data: [],
+      columns: [],
+      total: 0
     }
   },
   methods: {
     getData(currentPage) {
-      return api.getData(currentPage);
-    },
-    getColumns() {
-      return api.getColumns();
-    },
-    getTotal() {
-      return api.getTotal()
+      const res = api.getData(currentPage);
+      this.data = res.data;
+      this.columns = res.columnList;
+      this.total = res.total;
+      // return api.getData(currentPage);
     },
     setPage(currentPage) {
       this.currentPage = currentPage
+      this.getData(this.currentPage)
       console.log('setPage!')
     },
   },
+  created() {
+    this.getData(this.currentPage)
+  }
 }
 
 </script>

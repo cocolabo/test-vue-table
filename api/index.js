@@ -73,12 +73,10 @@ export default {
   getData(currentPage) {
     let start = perPage * (currentPage-1);
     let end = start + perPage;
-    return dataList.slice(start, end)
-  },
-  getColumns() {
-    return columnList
-  },
-  getTotal() {
-    return total
+    return {
+      columnList: columnList,
+      total: total,
+      data: dataList.slice(start, end)
+    };
   },
 }
