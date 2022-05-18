@@ -9,13 +9,11 @@
       @on-sort-change="onSortChange"
     >
     <div slot="table-actions">
-      current page: {{ currentPage }}
+      page: {{ currentPage }} / {{ totalPage }}
       <button @click="back()">back</button>
       <button @click="next()">next</button>
     </div>
-
     </vue-good-table>
-
   </div>
 </template>
 
@@ -45,6 +43,9 @@ export default {
     },
   },
   computed: {
+    totalPage() {
+        return Math.ceil(this.total / this.per_page);
+    },
     columns() {
       const labels = Object.keys(this.data[0])
       return _.map(labels, function(value) {
@@ -61,10 +62,14 @@ export default {
       this.$emit('sortData', params[0].field, params[0].type)
     },
     back() {
+      if (this.currentPage > 1) {
         this.$emit('backPage', this.currentPage)
+      }
     },
     next() {
+      if (this.currentPage < this.totalPage) {
         this.$emit('nextPage', this.currentPage)
+      }
     }
   }
 };
