@@ -5,7 +5,10 @@
       :total="total"
       :data="data"
       :columns="columns"
-      @setPage="setPage"
+      :currentPage="currentPage"
+      @backPage="backPage"
+      @nextPage="nextPage"
+      @sortData="sortData"
     ></vue-good-table-form>
   </div>
 </template>
@@ -22,22 +25,35 @@ export default {
       currentPage: 1,
       data: [],
       columns: [],
-      total: 0
+      total: 0,
+      sortField: null,
+      sortType: null
     }
   },
   methods: {
-    getData(currentPage) {
-      const res = api.getData(currentPage);
+    getData(currentPage, field=null, type=null) {
+      const res = api.getData(currentPage, this.sortField, this.sortType);
       this.data = res.data;
       this.columns = res.columnList;
       this.total = res.total;
-      // return api.getData(currentPage);
     },
-    setPage(currentPage) {
-      this.currentPage = currentPage
-      this.getData(this.currentPage)
-      console.log('setPage!')
+    sortData(field, type) {
+      this.currentPage = 1
+      this.sortField = field
+      this.sortType = type
+      this.getData(this.currentPage, this.sortField, this.sortType);
+      console.log('sortData!')
     },
+    nextPage() {
+      this.currentPage++;
+      this.getData(this.currentPage,this.sortField, this.sortType);
+      console.log('nextPage')
+    },
+    backPage() {
+      this.currentPage--;
+      this.getData(this.currentPage,this.sortField, this.sortType);
+      console.log('backPage')
+    }
   },
   created() {
     this.getData(this.currentPage)

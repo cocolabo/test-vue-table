@@ -70,13 +70,17 @@ const columnList = [
 const total = dataList.length;
 const perPage = 10;
 export default {
-  getData(currentPage) {
+  getData(currentPage, field, type) {
     let start = perPage * (currentPage-1);
     let end = start + perPage;
+    let sorted = dataList;
+    if (field !== null && type !== null) {
+      sorted = _.orderBy(dataList, [field], [type]);
+    }
     return {
       columnList: columnList,
       total: total,
-      data: dataList.slice(start, end)
+      data: sorted.slice(start, end)
     };
   },
 }

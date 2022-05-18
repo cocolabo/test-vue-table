@@ -3,12 +3,19 @@
     <vue-good-table
       :columns="columns"
       :rows="data"
-      max-height="200px"
+      max-height="300px"
       :fixed-header="true"
       :line-numbers="true"
-    />
-    <button @click="back()">back</button>
-    <button @click="next()">next</button>
+      @on-sort-change="onSortChange"
+    >
+    <div slot="table-actions">
+      current page: {{ currentPage }}
+      <button @click="back()">back</button>
+      <button @click="next()">next</button>
+    </div>
+
+    </vue-good-table>
+
   </div>
 </template>
 
@@ -18,11 +25,15 @@ export default {
   name: 'VueGoodTableForm',
   data(){
     return {
-      currentPage: 1,
+      // currentPage: 1,
       per_page: 10,
     }
   },
   props: {
+    currentPage: {
+      type: Number,
+      required: true
+    },
     total: {
       type: Number,
       required: true
@@ -38,13 +49,14 @@ export default {
   },
 
   methods:{
+    onSortChange(params) {
+      this.$emit('sortData', params[0].field, params[0].type)
+    },
     back() {
-        this.currentPage--;
-        this.$emit('setPage', this.currentPage)
+        this.$emit('backPage', this.currentPage)
     },
     next() {
-        this.currentPage++;
-        this.$emit('setPage', this.currentPage)
+        this.$emit('nextPage', this.currentPage)
     }
   }
 };
