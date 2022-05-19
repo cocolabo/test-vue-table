@@ -31,7 +31,6 @@ export default {
   name: 'VueGoodTableForm',
   data(){
     return {
-      // currentPage: 1,
       per_page: 10,
     }
   },
@@ -64,6 +63,7 @@ export default {
       columnList.unshift({label: 'Number', field: 'number'});
       return columnList
     },
+    // ページの先頭のnumberを計算する
     number() {
       return (this.currentPage - 1) * this.per_page + 1
     }
