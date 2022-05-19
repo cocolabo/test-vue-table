@@ -6,6 +6,7 @@
       max-height="300px"
       :fixed-header="true"
       @on-sort-change="onSortChange"
+      styleClass="vgt-table"
     >
     <template slot="table-row" slot-scope="props">
       <span v-if="props.column.field == 'number'">
@@ -83,3 +84,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.vgt-table {
+  border: 1px solid red !important;
+}
+</style>
