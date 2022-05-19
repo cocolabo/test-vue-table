@@ -5,6 +5,9 @@
       :total="total"
       :data="data"
       :currentPage="currentPage"
+      @backPage="backPage"
+      @nextPage="nextPage"
+      @sortData="sortData"
     ></ag-grid-form>
   </div>
 </template>
