@@ -11,9 +11,6 @@
       <span v-if="props.column.field == 'number'">
         {{ number + props.row.originalIndex }}
       </span>
-      <span v-else>
-        {{props.formattedRow[props.column.field]}}
-      </span>
     </template>
     <div slot="table-actions">
       page: {{ currentPage }} / {{ totalPage }}
