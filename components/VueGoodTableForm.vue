@@ -14,8 +14,10 @@
       </span>
     </template>
     <div slot="table-actions">
-      page: {{ currentPage }} / {{ totalPage }}
+      <span>行数：{{ data.length }}</span>
+      <span>列数：{{ columns.length }}</span>
       <button @click="back()">back</button>
+      {{ currentPage }} / {{ totalPage }}
       <button @click="next()">next</button>
     </div>
     </vue-good-table>
@@ -58,7 +60,7 @@ export default {
           field: value
         }
       })
-      columnList.unshift({label: 'Number', field: 'number'});
+      columnList.unshift({label: 'No', field: 'number'});
       return columnList
     },
     // ページの先頭のnumberを計算する
