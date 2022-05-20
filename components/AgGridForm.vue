@@ -59,8 +59,12 @@ export default {
           field: value,
         }
       })
-      columnList.unshift({field: 'No', valueGetter: 'node.rowIndex +' + this.number });
-      console.log(columnList)
+      columnList.unshift({
+        field: 'No',
+        valueGetter: 'node.rowIndex +' + this.number,
+        cellStyle: {backgroundColor: '#babfc7'},
+        width: 80
+      });
       return columnList
     },
     // ページの先頭のNoを計算する
