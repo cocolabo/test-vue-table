@@ -14,8 +14,7 @@
       class="ag-theme-alpine"
       :columnDefs="columns"
       :rowData="data"
-      :pagination="true"
-      paginationPageSize="5"
+      :pagination="false"
       :suppressPaginationPanel="true"
     >
     </ag-grid-vue>
@@ -57,12 +56,17 @@ export default {
       const labels = Object.keys(this.data[0])
       const columnList = _.map(labels, function(value) {
         return {
-          label: value,
-          field: value
+          field: value,
         }
       })
+      columnList.unshift({field: 'No', valueGetter: 'node.rowIndex +' + this.number });
+      console.log(columnList)
       return columnList
     },
+    // ページの先頭のNoを計算する
+    number() {
+      return (this.currentPage - 1) * this.per_page + 1
+    }
   },
   methods:{
     onSortChange(params) {
@@ -79,7 +83,7 @@ export default {
       if (this.currentPage < this.totalPage) {
         this.$emit('nextPage', this.currentPage)
       }
-    }
+    },
   }
 };
 </script>
