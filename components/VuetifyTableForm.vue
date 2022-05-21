@@ -20,10 +20,6 @@ export default {
     }
   },
   props: {
-    currentPage: {
-      type: Number,
-      required: true
-    },
     total: {
       type: Number,
       required: true
@@ -46,9 +42,10 @@ export default {
     },
   },
   methods:{
-    updatePagination (pagination) {
-      this.$emit('getData', pagination)
-      console.log('update:pagination', pagination)
+    // pageには前後のページ数が入る
+    updatePagination (page) {
+      this.$emit('getData', page)
+      console.log('update:pagination', page)
     },
   }
 };

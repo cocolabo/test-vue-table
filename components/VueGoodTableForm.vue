@@ -4,21 +4,22 @@
       :columns="columns"
       :rows="data"
       max-height="300px"
+      :line-numbers="true"
       :fixed-header="true"
       @on-sort-change="onSortChange"
+      @on-page-change="onPageChange"
+      @on-per-page-change="onPerPageChange"
+      mode="remote"
+      :pagination-options="{
+        enabled: true,
+        perPageDropdownEnabled: false,
+      }"
+      :totalRows="total"
       styleClass="vgt-table"
     >
-    <template slot="table-row" slot-scope="props">
-      <span v-if="props.column.field == 'number'">
-        {{ number + props.row.originalIndex }}
-      </span>
-    </template>
     <div slot="table-actions">
       <span>行数：{{ data.length }}</span>
       <span>列数：{{ columns.length }}</span>
-      <button @click="back()">back</button>
-      {{ currentPage }} / {{ totalPage }}
-      <button @click="next()">next</button>
     </div>
     </vue-good-table>
   </div>
@@ -60,7 +61,6 @@ export default {
           field: value
         }
       })
-      columnList.unshift({label: 'No', field: 'number'});
       return columnList
     },
     // ページの先頭のnumberを計算する
@@ -70,19 +70,13 @@ export default {
   },
 
   methods:{
+    onPageChange(data) {
+      console.log('onPageChange')
+      this.$emit('getData', data.currentPage)
+    },
     onSortChange(params) {
       this.$emit('sortData', params[0].field, params[0].type)
     },
-    back() {
-      if (this.currentPage > 1) {
-        this.$emit('backPage', this.currentPage)
-      }
-    },
-    next() {
-      if (this.currentPage < this.totalPage) {
-        this.$emit('nextPage', this.currentPage)
-      }
-    }
   }
 };
 </script>
@@ -90,5 +84,8 @@ export default {
 <style>
 .vgt-table {
   border: 1px solid red !important;
+}
+.vgt-table th.line-numbers {
+  width: 50px !important;
 }
 </style>

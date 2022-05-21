@@ -5,8 +5,7 @@
       :total="total"
       :data="data"
       :currentPage="currentPage"
-      @backPage="backPage"
-      @nextPage="nextPage"
+      @getData="getData"
       @sortData="sortData"
     ></vue-good-table-form>
   </div>
@@ -41,16 +40,6 @@ export default {
       this.getData(this.currentPage, this.sortField, this.sortType);
       console.log('sortData!')
     },
-    nextPage() {
-      this.currentPage++;
-      this.getData(this.currentPage,this.sortField, this.sortType);
-      console.log('nextPage')
-    },
-    backPage() {
-      this.currentPage--;
-      this.getData(this.currentPage,this.sortField, this.sortType);
-      console.log('backPage')
-    }
   },
   created() {
     this.getData(this.currentPage)
