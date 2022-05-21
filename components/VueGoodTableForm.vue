@@ -8,7 +8,6 @@
       :fixed-header="true"
       @on-sort-change="onSortChange"
       @on-page-change="onPageChange"
-      @on-per-page-change="onPerPageChange"
       mode="remote"
       :pagination-options="{
         enabled: true,
