@@ -1,4 +1,6 @@
 export default {
+  ssr: false,
+  target: 'static',
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'test-vue-table',
@@ -22,7 +24,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: '~/plugins/vue-good-table', ssr: true },
+    { src: '~/plugins/vue-good-table', ssr: false },
     { src: '~plugins/lodash.js' },
   ],
   // Auto import components: https://go.nuxtjs.dev/config-components
