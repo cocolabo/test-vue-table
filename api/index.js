@@ -1,4 +1,5 @@
 const dataList = [
+  {id:'',visitors:'',sales:'',isBargain:'',categoryId:'',weatherId:''},
   {id:1,visitors:418,sales:49,isBargain:true,categoryId:2,weatherId:3},
   {id:2,visitors:159,sales:66,isBargain:true,categoryId:1,weatherId:2},
   {id:3,visitors:922,sales:98,isBargain:true,categoryId:2,weatherId:2},

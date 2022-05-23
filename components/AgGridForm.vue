@@ -16,6 +16,7 @@
       :rowData="data"
       :pagination="false"
       :suppressPaginationPanel="true"
+      :getRowHeight="getRowHeight"
     >
     </ag-grid-vue>
   </div>
@@ -24,6 +25,7 @@
 <script>
 import _ from 'lodash';
 import { AgGridVue } from '@/node_modules/ag-grid-vue';
+import Graph2 from '@/components/Graph2'
 
 export default {
   data() {
@@ -46,7 +48,7 @@ export default {
     },
   },
   components: {
-    AgGridVue,
+    AgGridVue, Graph2
   },
   computed: {
     totalPage() {
@@ -54,11 +56,8 @@ export default {
     },
     columns() {
       const labels = Object.keys(this.data[0])
-      const columnList = _.map(labels, function(value) {
-        return {
-          field: value,
-        }
-      })
+      const currentPage = this.currentPage
+      const columnList = _.map(labels, this.cellRenderMethod)
       columnList.unshift({
         field: 'No',
         valueGetter: 'node.rowIndex +' + this.number,
@@ -69,10 +68,24 @@ export default {
     },
     // ページの先頭のNoを計算する
     number() {
-      return (this.currentPage - 1) * this.per_page + 1
+      return (this.currentPage - 1) * this.per_page
     }
   },
   methods:{
+    cellRenderMethod(value) {
+      return {
+          headerName: value,
+          field: value,
+          cellRendererSelector: params => {
+            if (this.currentPage === 1 && params.rowIndex === 0) {
+                return {
+                  component: 'Graph2',
+                };
+            }
+            return undefined;
+          }
+        }
+    },
     onSortChange(params) {
       this.$emit('sortData', params[0].field, params[0].type)
     },
@@ -86,6 +99,12 @@ export default {
       console.log('next')
       if (this.currentPage < this.totalPage) {
         this.$emit('nextPage', this.currentPage)
+      }
+    },
+    getRowHeight(params) {
+      console.log(params)
+      if (this.currentPage === 1 && params.node.rowIndex === 0) {
+        return 100;
       }
     },
   }
