@@ -33,9 +33,6 @@ export default {
     },
   },
   computed: {
-    totalPage() {
-        return Math.ceil(this.total / this.per_page);
-    },
     columns() {
       const labels = Object.keys(this.data[0])
       const columnList = _.map(labels, function(value) {
