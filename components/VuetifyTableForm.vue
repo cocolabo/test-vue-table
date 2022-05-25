@@ -1,12 +1,15 @@
 <template>
-  <v-data-table
-    :headers="columns"
-    :items="data"
-    :items-per-page="per_page"
-    :server-items-length="total"
-    class="elevation-1"
-    @update:page="updatePagination"
-  ></v-data-table>
+  <v-app>
+    <v-data-table
+      :headers="columns"
+      :items="data"
+      :items-per-page="per_page"
+      :server-items-length="total"
+      class="elevation-1"
+      @update:page="updatePagination"
+      @update:items-per-page="updateItemPerPage"
+    ></v-data-table>
+  </v-app>
 </template>
 
 
@@ -47,6 +50,9 @@ export default {
       this.$emit('getData', page)
       console.log('update:pagination', page)
     },
+    updateItemPerPage() {
+      console.log('update:items-per-page')
+    }
   }
 };
 </script>
